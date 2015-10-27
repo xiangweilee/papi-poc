@@ -51,6 +51,8 @@ RUN \
   `########## Prepare PHP Extenstion Path ##########` \
   mkdir /usr/local/php-5.4.39/lib/php/extensions && \
   mkdir /usr/local/php-5.4.39/lib/php/extensions/no-debug-non-zts-20100525 && \
+  `########## Clean Tmp Folder ##########` && \
+  rm -rf /tmp/* /var/tmp/* && \
   `########## Add PHP to execution path ##########` && \
   ln -s /usr/local/php-5.4.39/bin/php /usr/bin/php 
 
