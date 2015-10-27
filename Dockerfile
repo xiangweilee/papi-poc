@@ -28,6 +28,8 @@ RUN \
   yum install -y --nogpgcheck ImageMagick-devel.x86_64 && \  
   yum install -y --nogpgcheck autoconf && \
   yum install -y --nogpgcheck gcc-c++.x86_64 && \
+  yum install -y --nogpgcheck supervisor && \
+  yum install -y --nogpgcheck sendmail && \
   yum clean all && \
   `########## Install FreeTDS ##########` && \
   cd /tmp && \
@@ -100,11 +102,6 @@ RUN \
   mkdir -p /data/log/nginx && \
   mkdir -p /data/log/php && \
   mkdir -p /data/log/supervisor
-
-# Install Supervisor
-RUN yum install -y supervisor
-
-RUN yum install -y sendmail
 
 # Apply Configuration 
 ADD config/nginx.conf /etc/nginx/nginx.conf
