@@ -117,6 +117,7 @@ VOLUME ["/data"]
 
 # Nginx Ports
 EXPOSE 80
+EXPOSE 9001
 
 # Start the supervisord and it will start PHP-FPM and Nginx
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
@@ -128,6 +129,7 @@ ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 # EXPOSE — Open ports from the Docker container to the host.
 # CMD — The default command to run when the container is started. Can be overridden from the command line at runtime.
 # ENTRYPOINT — Similar to the CMD option in that it will be the default command that is run but this one cannot be overridden from the command line.
+# VOLUME instruction makes the directory available as a volume that other containers can mount by using the --volumes-from
 
 # Note: Different with Old Live Env: 
 # - newrelic
