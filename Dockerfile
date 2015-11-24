@@ -104,7 +104,9 @@ RUN \
   mkdir -p /data/log/nginx && \
   mkdir -p /data/log/php && \
   mkdir -p /data/log/supervisor && \
-  mkdir -p /data/api-root
+  mkdir -p /data/api-root && \
+  mv /etc/localtime /etc/localtime.bak && \
+  ln -s /usr/share/zoneinfo/Asia/Singapore /etc/localtime
 
 # Apply Configuration 
 ADD config/nginx.conf /etc/nginx/nginx.conf
