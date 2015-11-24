@@ -103,13 +103,13 @@ RUN \
   mkdir -p /data/log && \
   mkdir -p /data/log/nginx && \
   mkdir -p /data/log/php && \
-  mkdir -p /data/log/supervisor
+  mkdir -p /data/log/supervisor && \
+  mkdir -p /data/api-root
 
 # Apply Configuration 
 ADD config/nginx.conf /etc/nginx/nginx.conf
 ADD config/freetds.conf /usr/local/freetds-0.92.79/etc/freetds.conf
 ADD config/php-fpm.conf /usr/local/php-5.4.39/etc/php-fpm.conf
-ADD config/phpinfo.php /data/www/phpinfo.php
 ADD config/supervisord.conf /etc/supervisord.conf
 
 # Data Volumes
@@ -117,6 +117,7 @@ VOLUME ["/data"]
 
 # Nginx Ports
 EXPOSE 80
+EXPOSE 8008
 EXPOSE 9001
 
 # Start the supervisord and it will start PHP-FPM and Nginx
@@ -139,4 +140,3 @@ ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 # https://hub.docker.com/r/dylanlindgren/docker-nginx/~/dockerfile/
 # https://hub.docker.com/r/million12/nginx/~/dockerfile/
 # https://hub.docker.com/r/dylanlindgren/docker-laravel-nginx/~/dockerfile/
-# 
