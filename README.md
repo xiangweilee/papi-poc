@@ -1,4 +1,4 @@
-<h1>About this</h1>
+<h1>About</h1>
 A docker container for PAPI
 
 <h1>Guidelines</h1>
@@ -12,18 +12,29 @@ Example:
 > docker build -t papi-poc:0.3 .
 
 <h3>To Run Docker Container under Interaction Terminal</h3>
+Interaction mode for development
+
 Command:
 > docker **run -it** [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...] 
 
 Example:
-> docker run -it --cap-add SYS_PTRACE --restart=always --rm -p 8081:80 -p 28081:9001 -p 18081:8008 -v /home/vagrant/queues:/data --name papi-poc papi-poc:0.3
+> docker run -it --cap-add SYS_PTRACE -p 8081:80 -p 28081:9001 -p 18081:8008 -v /docker/queues/data:/data --name papi-poc papi-poc:0.3
+
+Remarks:
+> --cap-add means, Add Linux capabilities
+> SYS_PTRACE means, The ptrace() system call provides a means by which one process (the "tracer") may observe and control the execution of another process (the "tracee"), and examine and change the tracee's memory and registers.  It is primarily used to implement breakpoint debugging and system call tracing.
 
 <h3>To Run Docker Container under Detach Mode</h3>
+Detach mode for production setup
+
 Command:
 > docker **run -d** [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...] 
 
 Example:
-> docker run -d --cap-add SYS_PTRACE --restart=always -p 8081:80 -p 28081:9001 -p 18081:8008 -v /home/vagrant/queues:/data --name papi-poc papi-poc:0.3
+> docker run -d --cap-add SYS_PTRACE --restart=always -p 8081:80 -p 28081:9001 -p 18081:8008 -v /docker/queues/data:/data --name papi-poc papi-poc:0.3
+
+Remarks:
+> --restart=always means, always restart the container regardless of the exit status. When you specify always, the Docker daemon will try to restart the container indefinitely. The container will also always start on daemon startup, regardless of the current state of the container.
 
 <h3>To SSH into Container</h3>
 First, find the container ID:
