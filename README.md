@@ -23,7 +23,7 @@ Example:
 Remarks:
 > --cap-add means, Add Linux capabilities
 
-> SYS_PTRACE means, The ptrace() system call provides a means by which one process (the "tracer") may observe and control the execution of another process (the "tracee"), and examine and change the tracee's memory and registers.  It is primarily used to implement breakpoint debugging and system call tracing.
+> SYS_PTRACE means, The ptrace() system call provides a means by which one process (the "tracer") may observe and control the execution of another process (the "tracee"), and examine and change the tracee's memory and registers.  It is primarily used to implement breakpoint debugging and system call tracing. To fix some error thrown by supervisor.
 
 <h3>To Run Docker Container under Detach Mode</h3>
 Detach mode for production setup
