@@ -30,6 +30,7 @@ First, find the container ID:
 > docker ps 
 
 Then, login to the container
+Command:
 > docker exec **-i -t** CONTAINER bash
 
 Example:
@@ -38,6 +39,7 @@ Example:
 <h3>To copy a file from container</h3>
 Command:
 > docker cp [OPTIONS] CONTAINER:PATH LOCALPATH|-
+
 OR
 > docker cp [OPTIONS] LOCALPATH|- CONTAINER:PATH
 
@@ -48,6 +50,6 @@ Example:
 You may need 4 cores vagrant instances and 2 GB RAM (Higher VM Spec)
 > docker rm $(docker ps -a | grep '2 days ago' | awk '{print $1}')
 
-OR Remove all
+OR remove all
 > docker rm $(docker ps -a -q)
 
