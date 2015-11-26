@@ -13,14 +13,14 @@ Example:
 
 <h3>To Run Docker Container under Interaction Terminal</h3>
 Command:
-> docker run **-it** [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...] 
+> docker **run -it** [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...] 
 
 Example:
 > docker run -it --cap-add SYS_PTRACE --restart=always --rm -p 8081:80 -p 28081:9001 -p 18081:8008 -v /home/vagrant/queues:/data --name papi-poc papi-poc:0.3
 
 <h3>To Run Docker Container under Detach Mode</h3>
 Command:
-> docker run **-d** [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...] 
+> docker **run -d** [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...] 
 
 Example:
 > docker run -d --cap-add SYS_PTRACE --restart=always -p 8081:80 -p 28081:9001 -p 18081:8008 -v /home/vagrant/queues:/data --name papi-poc papi-poc:0.3
@@ -31,7 +31,7 @@ First, find the container ID:
 
 Then, login to the container
 Command:
-> docker exec **-i -t** CONTAINER bash
+> docker **exec -i -t** CONTAINER bash
 
 Example:
 > docker exec -i -t b9584c8a4893 bash 
@@ -47,7 +47,7 @@ Example:
 > docker cp papi-poc:/etc/nginx/nginx.conf /vagrant/nginx.conf
 
 <h3>Clean up inactive container</h3>
-You may need 4 cores vagrant instances and 2 GB RAM (Higher VM Spec)
+You may need higher specification for vagrant instance, i.e. 4 cores and 2 GB RAM
 > docker rm $(docker ps -a | grep '2 days ago' | awk '{print $1}')
 
 OR remove all
