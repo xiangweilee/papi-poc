@@ -1,0 +1,48 @@
+papi-core:
+  image: papi-poc:0.3
+  container_name: papi-core
+  ports:
+   - "8081:80"
+   - "28081:9001"
+   - "18081:8008"
+  volumes:
+   - /home/vagrant/queues:/data
+  cap_add:
+    - SYS_PTRACE
+  mem_limit: 1g 
+  restart: unless-stopped
+
+registry:
+    image: registry:2.2
+    container_name: registry
+    ports:
+        - "5000:5000"
+    volumes:
+        - /data:/var/lib/registry 
+    restart: unless-stopped
+
+dockerui:
+    image: dockerui/dockerui
+    container_name: dockerui
+    ports:
+        - "9000:9000"
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    privileged: true
+
+cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    ports:
+        - "7000:8080"
+    volumes:
+        - /:/rootfs:ro
+        - /var/run:/var/run:rw
+        - /sys:/sys:ro
+        - /var/lib/docker/:/var/lib/docker:ro
+    restart: unless-stopped
+
+
+
+
