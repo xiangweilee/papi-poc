@@ -1,4 +1,4 @@
-FROM centos:7.1.1503
+FROM centos7.2.1511
 
 MAINTAINER "Chen Lin" <chenlin@seekasia.com>
 
