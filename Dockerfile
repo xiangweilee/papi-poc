@@ -6,9 +6,9 @@ WORKDIR /tmp
 
 # Install all required package; Use --nogpgcheck to avoid nokey warning
 RUN \
-  yum update -y && \  
-  yum install -y --nogpgcheck deltarpm-3.6-3.el7.x86_64  && \  
-  yum install -y --nogpgcheck epel-release && \  
+  yum update -y && \
+  yum install -y --nogpgcheck deltarpm-3.6-3.el7.x86_64  && \
+  yum install -y --nogpgcheck epel-release && \
   yum install -y --nogpgcheck nginx && \
   yum install -y --nogpgcheck wget.x86_64 && \
   yum install -y --nogpgcheck tar.x86_64 && \
@@ -17,7 +17,7 @@ RUN \
   yum install -y --nogpgcheck libXpm-devel.x86_64 && \
   yum install -y --nogpgcheck t1lib-devel.x86_64 && \
   yum install -y --nogpgcheck gmp-devel.x86_64 && \
-  yum install -y --nogpgcheck libxml2-devel && \   
+  yum install -y --nogpgcheck libxml2-devel && \
   yum install -y --nogpgcheck openssl-devel.x86_64 && \
   yum install -y --nogpgcheck libcurl-devel.x86_64 && \
   yum install -y --nogpgcheck libjpeg-turbo-devel.x86_64 && \
@@ -25,7 +25,7 @@ RUN \
   yum install -y --nogpgcheck freetype-devel.x86_64 && \
   yum install -y --nogpgcheck libxslt-devel.x86_64 && \
   yum install -y --nogpgcheck libmcrypt-devel.x86_64 && \
-  yum install -y --nogpgcheck ImageMagick-devel.x86_64 && \  
+  yum install -y --nogpgcheck ImageMagick-devel.x86_64 && \
   yum install -y --nogpgcheck autoconf && \
   yum install -y --nogpgcheck gcc-c++.x86_64 && \
   yum install -y --nogpgcheck supervisor && \
@@ -45,7 +45,7 @@ RUN \
   wget http://my1.php.net/distributions/php-5.4.39.tar.gz && \
   tar -zxvf php-5.4.39.tar.gz && \
   cd php-5.4.39 && \
-  ./configure --prefix=/usr/local/php-5.4.39  --disable-debug --enable-sigchild --enable-fpm --enable-cgi --enable-sockets --enable-pcntl --enable-mbstring --enable-calendar --enable-gd-native-ttf --enable-gd-jis-conv --with-zlib-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr --with-freetype-dir=/usr --with-xpm-dir=/usr --with-t1lib=/usr/local/t1lib-5.1.2 --with-xsl=/usr --with-gd --with-gettext --with-iconv --with-curl --with-mhash --with-mcrypt --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-mssql=/usr/local/freetds-0.92.79 --with-gmp --with-pear --with-openssl --with-pdo-dblib=/usr/local/freetds-0.92.79 --with-pdo-mysql=mysqlnd --enable-zip --with-libdir=lib64 --enable-bcmath --enable-soap && \ 
+  ./configure --prefix=/usr/local/php-5.4.39  --disable-debug --enable-sigchild --enable-fpm --enable-cgi --enable-sockets --enable-pcntl --enable-mbstring --enable-calendar --enable-gd-native-ttf --enable-gd-jis-conv --with-zlib-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr --with-freetype-dir=/usr --with-xpm-dir=/usr --with-t1lib=/usr/local/t1lib-5.1.2 --with-xsl=/usr --with-gd --with-gettext --with-iconv --with-curl --with-mhash --with-mcrypt --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-mssql=/usr/local/freetds-0.92.79 --with-gmp --with-pear --with-openssl --with-pdo-dblib=/usr/local/freetds-0.92.79 --with-pdo-mysql=mysqlnd --enable-zip --with-libdir=lib64 --enable-bcmath --enable-soap && \
   make && \
   make install && \
   `########## Prepare PHP Extenstion Path ##########` \
@@ -54,17 +54,17 @@ RUN \
   `########## Clean Tmp Folder ##########` && \
   rm -rf /tmp/* /var/tmp/* && \
   `########## Add PHP to execution path ##########` && \
-  ln -s /usr/local/php-5.4.39/bin/php /usr/bin/php 
+  ln -s /usr/local/php-5.4.39/bin/php /usr/bin/php
 
-# Apply PHP Configuration 
+# Apply PHP Configuration
 ADD config/php.ini /usr/local/php-5.4.39/lib/php.ini
 
-RUN \  
+RUN \
   `########## Install Zend Opcache PHP Ext ##########` \
   cd /tmp && \
   wget http://pecl.php.net/get/zendopcache-7.0.4.tgz && \
-  tar -zxvf zendopcache-7.0.4.tgz && \ 
-  cd zendopcache-7.0.4 && \ 
+  tar -zxvf zendopcache-7.0.4.tgz && \
+  cd zendopcache-7.0.4 && \
   /usr/local/php-5.4.39/bin/phpize && \
   ./configure --with-php-config=/usr/local/php-5.4.39/bin/php-config && \
   make && \
@@ -77,23 +77,32 @@ RUN \
   /usr/local/php-5.4.39/bin/phpize && \
   ./configure --with-php-config=/usr/local/php-5.4.39/bin/php-config && \
   make && \
-  make install && \  
+  make install && \
   `########## Install Lib Memcached required for PHP Memcached PHP Ext ##########` \
   cd /tmp && \
   wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz && \
-  tar -zxvf libmemcached-1.0.18.tar.gz && \ 
-  cd libmemcached-1.0.18 && \ 
-  ./configure && \ 
-  make && \ 
+  tar -zxvf libmemcached-1.0.18.tar.gz && \
+  cd libmemcached-1.0.18 && \
+  ./configure && \
+  make && \
+  make install && \
+ `########## Install igbinary PHP Ext ########` \
+  cd /tmp && \
+  wget https://pecl.php.net/get/igbinary-1.2.1.tgz && \
+  tar -zxvf igbinary-1.2.1.tgz && \
+  cd igbinary-1.2.1 && \
+  /usr/local/php-5.4.39/bin/phpize && \
+  ./configure --with-php-config=/usr/local/php-5.4.39/bin/php-config && \
+  make && \
   make install && \
   `########## Install Memcached PHP Ext ##########` \
   cd /tmp && \
-  wget http://pecl.php.net/get/memcached-2.1.0.tgz && \ 
-  tar -zxvf memcached-2.1.0.tgz && \ 
-  cd memcached-2.1.0 && \ 
-  /usr/local/php-5.4.39/bin/phpize && \ 
-  ./configure --with-php-config=/usr/local/php-5.4.39/bin/php-config && \ 
-  make && \ 
+  wget http://pecl.php.net/get/memcached-2.1.0.tgz && \
+  tar -zxvf memcached-2.1.0.tgz && \
+  cd memcached-2.1.0 && \
+  /usr/local/php-5.4.39/bin/phpize && \
+  ./configure --with-php-config=/usr/local/php-5.4.39/bin/php-config --enable-memcached-igbinary && \
+  make && \
   make install && \
   `########## Clean Tmp Folder ##########` && \
   rm -rf /tmp/* /var/tmp/* && \
@@ -108,7 +117,7 @@ RUN \
   mv /etc/localtime /etc/localtime.bak && \
   ln -s /usr/share/zoneinfo/Asia/Singapore /etc/localtime
 
-# Apply Configuration 
+# Apply Configuration
 ADD config/nginx.conf /etc/nginx/nginx.conf
 ADD config/freetds.conf /usr/local/freetds-0.92.79/etc/freetds.conf
 ADD config/php-fpm.conf /usr/local/php-5.4.39/etc/php-fpm.conf
@@ -134,7 +143,7 @@ ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 # ENTRYPOINT — Similar to the CMD option in that it will be the default command that is run but this one cannot be overridden from the command line.
 # VOLUME instruction makes the directory available as a volume that other containers can mount by using the --volumes-from
 
-# Note: Different with Old Live Env: 
+# Note: Different with Old Live Env:
 # - newrelic
 # - curl: AsynchDNS setting
 
