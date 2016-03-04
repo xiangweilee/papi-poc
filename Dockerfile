@@ -134,7 +134,6 @@ EXPOSE 9001
 # Start the supervisord and it will start PHP-FPM and Nginx
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 
-
 # FROM — Specify which image to use for the container.
 # RUN — Run a command on the container. Used for things like installing packages, etc.
 # ADD - Copies new files, directories or remote file URLs from <src> and adds them to the filesystem of the container at the path <dest>
