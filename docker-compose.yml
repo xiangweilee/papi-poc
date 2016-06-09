@@ -2,9 +2,9 @@ papi-core:
   image: papi-poc:0.3
   container_name: papi-core
   ports:
-   - "8081:80"
-   - "28081:9001"
-   - "18081:8008"
+   - "8082:80"
+   - "28082:9001"
+   - "18082:8008"
   volumes:
    - /home/vagrant/queues:/data
   cap_add:
