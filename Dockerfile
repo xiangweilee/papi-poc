@@ -130,6 +130,7 @@ VOLUME ["/data"]
 EXPOSE 80
 EXPOSE 8008
 EXPOSE 9001
+EXPOSE 8888
 
 # Start the supervisord and it will start PHP-FPM and Nginx
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
